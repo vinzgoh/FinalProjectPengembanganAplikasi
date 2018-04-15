@@ -42,6 +42,10 @@ import java.util.ResourceBundle;
 
 public class FormTableController implements Initializable {
 
+    static Optional<Coffee> showAndWait(Stage stage) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @FXML
     private TableView<Coffee> tablecoffee;
     @FXML

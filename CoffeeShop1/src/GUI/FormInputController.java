@@ -110,11 +110,12 @@ public class FormInputController implements Initializable {
             txtkodepbl.requestFocus();
         }
 
-        txtkodepbl.clear();
+
+        this.coffee = new Coffee(txtnamapbl.getText(), txtnamabrg.getText(), txtkodepbl.getText(), txthargabrg.getText());
+                txtkodepbl.clear();
         txtnamapbl.clear();
         txtnamabrg.clear();
         txthargabrg.clear();
-        this.coffee = new Coffee(txtnamapbl.getText(), txtnamabrg.getText(), txtkodepbl.getText(), txthargabrg.getText());
         txtkodepbl.requestFocus();
     }
 

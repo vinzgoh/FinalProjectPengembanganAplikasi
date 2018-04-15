@@ -46,8 +46,8 @@ public class Coffee {
         return namapbl;
     }
 
-    public void setNamapbl(String nama) {
-        this.namapbl.set(nama);
+    public void setNamapbl(String namapbl) {
+        this.namapbl.set(namapbl);
     }
     
     public String getNamabrg() {
@@ -58,8 +58,8 @@ public class Coffee {
         return namabrg;
     }
 
-    public void setNamabrg(String nama) {
-        this.namabrg.set(nama);
+    public void setNamabrg(String namabrg) {
+        this.namabrg.set(namabrg);
     }
     
     public String getHargabrg() {
