@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GUI;
-
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +15,6 @@ import static javafx.application.Application.launch;
 import javafx.scene.Parent;
 
 public class MainGUI extends Application {
-   
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -27,11 +24,12 @@ public class MainGUI extends Application {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Input Data Transaksi");
         stage.show();
     }
+
     public static void main(String[] args) {
         launch(args);
     }
-
 
 }

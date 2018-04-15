@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.FormTableController">
+<AnchorPane prefHeight="375.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblnama" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="87.0" prefWidth="443.0" text="DATA&#10;COFFEE SHOP" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="87.0" prefWidth="443.0" text="DATA&#10;COFFEE SHOP" textAlignment="CENTER">
          <font>
             <Font name="Berlin Sans FB Bold" size="32.0" />
          </font>

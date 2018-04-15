@@ -42,7 +42,6 @@ import java.util.ResourceBundle;
 
 public class FormTableController implements Initializable {
 
-    
     @FXML
     private TableView<Coffee> tablecoffee;
     @FXML
@@ -68,7 +67,7 @@ public class FormTableController implements Initializable {
 
     String filter;
     // primary stage, untuk dikirim ke form input sebagai parent window
-    Stage stage;
+    private Stage stage;
 
     public FormTableController(CoffeeDao dao, Stage stage) {
         this.dao = dao;
@@ -79,15 +78,14 @@ public class FormTableController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // load semua data mahasiswa
-        /* try {
-         mhs.addAll(dao.all());
+        try {
+            coffee.addAll(dao.all());
 
-         } catch (SQLException e) {
-         e.printStackTrace();
-         } */
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         coffee = new SimpleListProperty<>(FXCollections.observableArrayList());
         tablecoffee.itemsProperty().bind(coffee);
-
         columnkodepbl.setCellValueFactory(new PropertyValueFactory<>("kodepbl"));
         columnnamapbl.setCellValueFactory(new PropertyValueFactory<>("namapbl"));
         columnnamabrg.setCellValueFactory(new PropertyValueFactory<>("namabrg"));
@@ -117,6 +115,10 @@ public class FormTableController implements Initializable {
             // buat dialog
             Coffee m = inputDataCoffee(new Coffee("", "", "", ""), false).orElse(null);
 
+        });
+
+        btnInput.setOnAction(event -> {
+            this.stage.close();
         });
 
         tablecoffee.setOnMouseClicked(event -> {

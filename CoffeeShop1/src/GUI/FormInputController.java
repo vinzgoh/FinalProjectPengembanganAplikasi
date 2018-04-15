@@ -20,6 +20,7 @@ import DB.CoffeeDao;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class FormInputController implements Initializable {
 
@@ -52,7 +54,7 @@ public class FormInputController implements Initializable {
     @FXML
     private Button btnView;
     @FXML
-    private AnchorPane anchorpane;
+    private AnchorPane Pane;
     @FXML
     private Label lblJudul;
 
@@ -146,6 +148,7 @@ public class FormInputController implements Initializable {
             throw new IllegalArgumentException("Harga produk boleh kosong");
         }
         return hargabrg;
+
     }
 
     private void onKeyEscapePressed(KeyEvent event) {
@@ -190,22 +193,43 @@ public class FormInputController implements Initializable {
     }
 
     public void onBtnView(ActionEvent event) throws Exception {
-        table(stage);
-    };
+        table();
+    }
+
+    public void table() throws SQLException {
+        Connection conn = connectAndCreateTable("jdbc:sqlite:Coffee.sqlite");
+        CoffeeDao dao = new CoffeeDao(conn);
+        try {
+
+            Stage tabelStage = new Stage();
+            FXMLLoader Loader = new FXMLLoader();
+            Pane root = (Pane)Loader.load(Paths.get("src/GUI/FormTable.fxml").toUri().toURL());
+            Initializable controller = new FormTableController(dao, stage);
+            // set controller gui
+            Loader.setController(controller);
+            Scene scene = new Scene(root);
+            tabelStage.setScene(scene);
+            tabelStage.setTitle("Table DataBase Transaksi");
+            tabelStage.setResizable(true);
+            tabelStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Connection connectAndCreateTable(String url) throws SQLException {
         Connection conn = null;
         conn = DriverManager.getConnection(url);
         Statement stmt = conn.createStatement();
-        String sql = "create table if not exists coffee ("
+        String sql = "create table if not exists Coffee ("
                 + "kodepbl varchar(11) PRIMARY KEY, "
-                + "namapbl varchar(255) not null"
-                + "namabrg varchar(255) not null"
-                + "hargabrg number(255) not null"
+                + "namapbl varchar(255) not null,"
+                + "namabrg varchar(255) not null,"
+                + "hargabrg varchar(255) not null"
                 + ")";
         stmt.execute(sql);
 
-        ResultSet resultSet = stmt.executeQuery("select * from coffee");
+        ResultSet resultSet = stmt.executeQuery("select * from Coffee");
 
         // jika belum ada data tambahkan data contoh
         if (!resultSet.next()) {
@@ -216,23 +240,6 @@ public class FormInputController implements Initializable {
             stmt.execute("insert into Coffee values (\"134201800005\", \"Susi\", \"Coffee Latte\", \"30000\")");
         }
         return conn;
-    }
-
-    public void table(Stage primaryStage) throws Exception {
-        // inisialisasi database
-        Connection conn = connectAndCreateTable("jdbc:sqlite:coffee.sqlite");
-        CoffeeDao dao = new CoffeeDao(conn);
-
-        // inisialisasi gui
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FormTable.fxml"));
-        // kirimkan dao untuk digunakan di gui
-        Initializable controller = new FormTableController(dao, primaryStage);
-        // set controller gui
-        loader.setController(controller);
-
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     public Optional<Coffee> showAndWait(Stage stage) throws IOException {
